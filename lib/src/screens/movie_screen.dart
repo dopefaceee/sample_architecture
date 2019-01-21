@@ -14,10 +14,11 @@ class MovieScreen extends StatefulWidget {
   _MovieScreenState createState() => _MovieScreenState();
 
   StreamBuilder<MoviesState> buildStreamBuilder(
-      BuildContext context, MovieBloc movieBloc, TabKey tabKey, int tabIndex ) {
+      BuildContext context, MovieBloc movieBloc, TabKey tabKey, int tabIndex) {
     return StreamBuilder(
         key: Key('streamBuilder'),
         stream: movieBloc.stream,
+        initialData: MoviesLoading(),
         builder: (context, snapshot) {
           final data = snapshot.data;
           return Column(
@@ -41,7 +42,9 @@ class MovieScreen extends StatefulWidget {
                     MovieListWidget(
                         movieBloc: movieBloc,
                         tabKey: tabKey,
-                        movies: data is MoviesPopulated ? getMovies(data, movieBloc, tabKey) : []),
+                        movies: data is MoviesPopulated
+                            ? getMovies(data, movieBloc, tabKey)
+                            : []),
                   ],
                 ),
               )
@@ -50,7 +53,8 @@ class MovieScreen extends StatefulWidget {
         });
   }
 
-  List<TMDBMovieBasic> getMovies(MoviesPopulated data, MovieBloc movieBloc, TabKey tabKey) {
+  List<TMDBMovieBasic> getMovies(
+      MoviesPopulated data, MovieBloc movieBloc, TabKey tabKey) {
     return data.movies;
   }
 }

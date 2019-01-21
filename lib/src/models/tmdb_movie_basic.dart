@@ -43,7 +43,7 @@ class TMDBMovieBasic {
         return getReleaseYear();
       }
     } on Exception catch (e) {
-      return "";
+      return "$e";
     }
   }
 

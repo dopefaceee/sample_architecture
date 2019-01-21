@@ -9,7 +9,11 @@ class MovieListWidget extends StatefulWidget {
   final TabKey tabKey;
   final MovieBloc movieBloc;
 
-  MovieListWidget({Key key, @required this.movies,@required this.tabKey, @required this.movieBloc})
+  MovieListWidget(
+      {Key key,
+      @required this.movies,
+      @required this.tabKey,
+      @required this.movieBloc})
       : super(key: key);
 
   @override
@@ -29,7 +33,9 @@ class _MovieListWidgetState extends State<MovieListWidget> {
   void _scrollListener() {
     if (_scrollController.position.extentAfter < 2000 &&
         !_scrollController.isPaused) {
-      this.widget.movieBloc.nextPage.add(this.widget.tabKey); //If there are more than 1 Tab, use like this add(this.widget.TabKey)
+      this.widget.movieBloc.nextPage.add(this
+          .widget
+          .tabKey); //If there are more than 1 Tab, use like this add(this.widget.TabKey)
       _scrollController.pause();
     }
   }

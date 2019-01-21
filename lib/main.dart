@@ -4,13 +4,6 @@ import 'package:sample_architecture/src/blocs/bloc_provider.dart';
 import 'package:sample_architecture/src/data/constants/api_constants.dart';
 import 'package:sample_architecture/src/screens/home_screen.dart';
 
-///Requirement for Architecture
-///
-/// BLoC Pattern
-/// RxDart
-/// json_annotation
-/// http
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {

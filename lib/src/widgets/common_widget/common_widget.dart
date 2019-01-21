@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:atomic_app_customer_musteat_id/atomic_app_customer_musteat_id.dart';
 
 Widget getAppBar({title, context, tabController, myTabs}) {
   return AppBar(
@@ -29,16 +28,6 @@ IconButton infoAction(context) {
 class AtomicUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          AtomicPrimaryButton(
-            text: 'PRIMARY',
-            padding: EdgeInsets.all(15.0),
-            buttonType: AtomicButtonType.PRIMARY,
-          ),
-        ],
-      ),
-    );
+    return Container();
   }
 }

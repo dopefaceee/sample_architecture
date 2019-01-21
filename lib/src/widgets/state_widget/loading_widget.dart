@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:atomic_app_customer_musteat_id/atomic_app_customer_musteat_id.dart';
 
 class LoadingWidget extends StatelessWidget {
   final bool visible;
