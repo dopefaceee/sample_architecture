@@ -7,59 +7,75 @@ import 'package:sample_architecture/src/models/tmdb_movie_basic.dart';
 import 'package:sample_architecture/src/screens/movies_state.dart';
 import 'package:intl/intl.dart';
 
+///movie bloc class
 class MovieBloc extends BlocBase {
+  ///define which api to used
   TMDBApi api;
+  ///initial page
   int page = 0;
+  ///define region movie
   String region;
 
+  ///init moviespopulated with empty array
   MoviesPopulated moviesPopulated = MoviesPopulated([]);
 
+  ///init tabkey
   TabKey tabKey;
 
-  var _streamController = StreamController<MoviesState>.broadcast();
+  ///multiple subscribe using broadcast
+  final _streamController = StreamController<MoviesState>.broadcast();
+
+  ///sink for moviestate
   Sink<MoviesState> get sink => _streamController.sink;
 
+  ///stream getter
   Stream<MoviesState> get stream => _streamController.stream;
 
   final _nextPageController = StreamController();
 
+  ///sink for nextpage
   Sink get nextPage => _nextPageController.sink;
 
+  ///movie bloc constructor
   MovieBloc({this.api, this.tabKey, this.region}) {
     _nextPageController.stream.listen(fetchNextPage);
     init();
   }
 
+  ///init method
   void init() {
     if (page == 0) {
       fetchNextPage();
     }
   }
 
-  fetchNextPage([event]) {
+  ///fetch next page
+  void fetchNextPage([event]) {
     fetchMoviesFromNetwork();
   }
 
+  ///fetch data
   void fetchMoviesFromNetwork() async {
     if (_hasNoExistingData()) {
-      this.sink.add(MoviesLoading());
+      sink.add(MoviesLoading());
     }
 
     page += 1;
     try {
       final result = await _getApiCall(page);
       if (result.isEmpty && _hasNoExistingData()) {
-        this.sink.add(MoviesEmpty());
+        sink.add(MoviesEmpty());
       } else {
         moviesPopulated.update(newMovies: result.results);
-        this.sink.add(moviesPopulated);
+        sink.add(moviesPopulated);
       }
     } on Exception catch (e) {
       print('error $e');
-      this.sink.add(MoviesError(e.toString()));
+      sink.add(MoviesError(e.toString()));
     }
   }
 
+  ///sort movie by release date
   List<TMDBMovieBasic> sortMoviesByReleaseDate() {
     moviesPopulated.movies.sort((a, b) {
       var releaseDateA = DateFormat("yyyy-M-dd").parse(a.releaseDate);
@@ -78,6 +94,7 @@ class MovieBloc extends BlocBase {
 
   bool _hasNoExistingData() => moviesPopulated.movies?.isEmpty ?? true;
 
+  ///define which state is running
   void onPrintState(MoviesState state) {
     print("Current state should be $state");
   }

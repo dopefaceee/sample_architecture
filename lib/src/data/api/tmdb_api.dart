@@ -7,13 +7,14 @@ import 'package:sample_architecture/src/data/api/endpoints.dart';
 
 class TMDBApi {
 
+  ///get nowplaying response
   Future<TMDBMoviesResponse> nowPlayingMovies({int page}) async {
     final response = await _makeRequest(Endpoints.nowPlayingMoviesUrl(page));
     return TMDBMoviesResponse.fromJson(json.decode(response.body));
   }
 
   Future<http.Response> _makeRequest(String url) async {
-    print("request to ----> " + url);
+    print("request to ----> $url");
     return await http.get(url);
   }
 

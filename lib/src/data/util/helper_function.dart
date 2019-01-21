@@ -4,6 +4,7 @@ import 'package:sample_architecture/src/data/api/tmdb_api.dart';
 import 'package:sample_architecture/src/screens/movie_screen.dart';
 import 'package:sample_architecture/src/screens/tabs/tab_object.dart';
 
+///helper method for load movie screen
 BlocProvider<MovieBloc> getNowPlayingProvider() {
   return BlocProvider<MovieBloc>(
     child: MovieScreen(),
